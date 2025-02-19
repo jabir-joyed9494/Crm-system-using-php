@@ -1,0 +1,46 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.hero-section{
+    display: flex;
+    height: 80vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: brown;
+}
+.hero-section-layer-1{
+    margin-top: 10vh;
+    background-color: cadetblue;
+    width: 50%;
+    text-align: center;
+}
+.hero-section-lead-search{
+     margin-top: 3vh;
+}
+label {
+    font-weight: bold;
+    display: block;
+    margin-top: 5px;
+}
+input[type="text"] {
+    width: 50%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: 0.3s;
+}
+input[type="submit"] {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+    width: 50%;
+}

@@ -1,0 +1,13 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.navbar-brand{
+    margin-left: 20px !important;
+    color: aliceblue !important;
+}
+.navbar{
+    background-color: black !important;
+    color: aliceblue !important;
+}
