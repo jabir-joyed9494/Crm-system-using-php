@@ -16,7 +16,7 @@ require_once 'includes/crm.php';
                     $nameErr="Name is required";
                  }
                  else {
-                   $name = test_input($_POST["name"]);
+                   $name =($_POST["name"]);
                    if (!preg_match("/^[a-zA-Z-' ]*$/",$name)) {
                        $nameErr = "Only letters and white space allowed";
                      }
@@ -26,17 +26,17 @@ require_once 'includes/crm.php';
                     $emailErr = "Email is required";
                  }
                  else{
-                    $email = test_input($_POST["email"]);
+                    $email = ($_POST["email"]);
                     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                         $emailErr = "Invalid email format";
                       }
                  }
 
                  if(empty($_POST["phone"])){
-                    $emailErr = "phone is required";
+                    $phoneErr = "phone is required";
                  }
                  else{
-                    $phone = test_input($_POST["phone"]);
+                    $phone = ($_POST["phone"]);
                     if (!preg_match("/^\+?[0-9\s\-\(\)]{7,15}$/", $phone)) {
                         $phoneErr = "Invalid phone number format";
                     }
@@ -44,15 +44,10 @@ require_once 'includes/crm.php';
 
                 }
 
-                function test_input($data){
-                    $data=trim($data);
-                    $data=stripslashes($data);
-                    return $data;
-                  }
                  if($nameErr === "" && $emailErr === "" && $phoneErr === "" && ($name !== "")){
                     $crm->addLead($name,$email,$phone);
                     $submitted = true;
-                    $result = "✅ Successfully Added!";
+                    $result = "Successfully Added!";
                  } 
              ?>
 

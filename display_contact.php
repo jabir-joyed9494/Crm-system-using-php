@@ -1,42 +1,25 @@
-<?php
+<?php 
+    include 'includes/crm.php';
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-  include 'includes/crm.php';
-  
-   $crm = new CRM();
-   $name = "";
-   $nameErr = "";
-   $leads = [];
+    $contacts = [];
+    $crm = new CRM();
+    $contacts =  $crm->displayContact();
 
-   if($_SERVER["REQUEST_METHOD"] == "POST"){
-    if(empty($_POST["name"])) {
-        $nameErr="Name is required";
-     }
-     else {
-       $name = ($_POST["name"]);
-       if (!preg_match("/^[a-zA-Z-' ]*$/",$name)) {
-           $nameErr = "Only letters and white space allowed";
-         }
-     }
-     if($nameErr === ""){
-        $leads = $crm->searchLeadsByName($name);
-      }
-   }
 ?>
 
-
-
-
 <html>
-<head>
+   <head>
+   <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="navbar.css" rel="stylesheet">
-    <link href="for-css/search-lead.css" rel="stylesheet">
-</head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <link href="for-css/display_lead.css" rel="stylesheet">
+   </head>
+
+   <body>
+   <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">CRM</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -44,7 +27,7 @@ ini_set('display_errors', 1);
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
                 <li class="nav-item active">
-                    <a class="nav-link text-white" href="index.php">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link text-white" href="index.php">Home</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -74,26 +57,15 @@ ini_set('display_errors', 1);
             </ul>
         </div>
     </nav>
+   
 
-    <section class="hero-section">
-    <div class="hero-section-layer-1">
-
-                <h4>SEARCH LEAD</h4>
-                 <div class="hero-section-lead-search">
-                    <form action="" method="POST">
-                     <label style="margin-bottom: 10px;">Search Lead By Name :</label>
-                     <input type="text"  name="name"><br>
-                     <span ><?php echo $nameErr;?></span><br>
-                     <input type="submit" name="submit">
-                    </form>
-                </div>
-
+    <div class="hero-section-layer-1" style="margin-top: 40px;">
                 
 
-                <?php if (isset($leads) && count($leads) > 0): ?>
+                <?php if (isset($contacts) && count($contacts) > 0): ?>
             <div class="table-responsive mt-4">
-                <h2 class="mb-4">Matching Leads</h2>
-                <table class="table table-bordered table-striped">
+                <h2 class="mb-4">Matching Contacts</h2>
+                <table class="table table-bordered table-striped" style="background-color: burlywood;">
                     <thead class="table-dark">
                         <tr>
                             <th>id</th>
@@ -103,28 +75,21 @@ ini_set('display_errors', 1);
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($leads as $lead): ?>
+                        <?php foreach ($contacts as $contact): ?>
                             <tr>
-                                <td><?php echo $lead['id'] ?></td>
-                                <td><?php echo htmlspecialchars($lead['name']); ?></td>
-                                <td><?php echo htmlspecialchars($lead['email']) ?></td>
-                                <td><?php echo htmlspecialchars($lead['phone']) ?></td>
+                                <td><?php echo $contact['id'] ?></td>
+                                <td><?php echo ($contact['name']) ?></td>
+                                <td><?php echo ($contact['email']) ?></td>
+                                <td><?php echo ($contact['phone']) ?></td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>
-        <?php elseif (isset($leads)): ?>
-            <p class="mt-4 text-danger">No leads found with the name "<?= htmlspecialchars($name) ?>". Please try a different name.</p>
         <?php endif; ?>
           </div>
 
 
-    </section>
-
-
-    <!-- Bootstrap JavaScript and Popper.js -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
 </body>
+
 </html>

@@ -20,9 +20,9 @@
 
 
               <div class="hero-section-label-2 row">
-                   <div class="col-md-3 col-12 btn" style="margin-left: 100px;"><a href="add-contact.php" >ADD CONTACT</a></div>
-                   <div class="col-md-3 col-12 btn"><a href="search-lead.php" >SEARCH CONTACT</a></div>
-                    <div class="col-md-3 col-12 btn"><a href="display-leads.php" >DISPLAY CONTACT</a></div>
+                   <div class="col-md-3 col-12 btn" style="margin-left: 100px;"><a href="add_contact.php" >ADD CONTACT</a></div>
+                   <div class="col-md-3 col-12 btn"><a href="search_contact.php" >SEARCH CONTACT</a></div>
+                    <div class="col-md-3 col-12 btn"><a href="display_contact.php" >DISPLAY CONTACT</a></div>
               </div>
 
               <div>

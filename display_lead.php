@@ -84,7 +84,7 @@ ini_set('display_errors', 1);
                 <?php if (isset($leads) && count($leads) > 0): ?>
             <div class="table-responsive mt-4">
                 <h2 class="mb-4">Matching Leads</h2>
-                <table class="table table-bordered table-striped">
+                <table class="table table-bordered table-striped" style="background-color: burlywood;">
                     <thead class="table-dark">
                         <tr>
                             <th>id</th>
@@ -97,19 +97,19 @@ ini_set('display_errors', 1);
                     <tbody>
                         <?php foreach ($leads as $lead): ?>
                             <tr>
-                                <td><?= $lead['id'] ?></td>
-                                <td><?= htmlspecialchars($lead['name']) ?></td>
-                                <td><?= htmlspecialchars($lead['email']) ?></td>
-                                <td><a href="<?= htmlspecialchars($lead['name']) ?>" target="_blank"><?= htmlspecialchars($lead['phone']) ?></a></td>
+                                <td><?php echo $lead['id'] ?></td>
+                                <td><?php echo ($lead['name']) ?></td>
+                                <td><?php echo ($lead['email']) ?></td>
+                                <td><?php echo ($lead['phone']) ?></td>
                                 <td>
 
-                                <button class="btn btn-warning btn-sm update-btn" data-id="<?= $lead['id'] ?>" 
-                                data-name="<?= htmlspecialchars($lead['name']) ?>" data-email="<?= htmlspecialchars($lead['email']) 
-                                ?>" data-phone="<?= htmlspecialchars($lead['phone']) ?>" data-bs-toggle="modal" 
+                                <button class="btn btn-warning btn-sm update-btn" data-id="<?php echo $lead['id'] ?>" 
+                                data-name="<?php echo ($lead['name']) ?>" data-email="<?php echo ($lead['email']) 
+                                ?>" data-phone="<?php echo ($lead['phone']) ?>" data-bs-toggle="modal" 
                                 data-bs-target="#updateModal">Update</button>
 
-                                    <button class="btn btn-danger btn-sm delete-btn" data-id="<?= $lead['id'] ?>"
-                                     data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">Delete</button>
+                                    <button class="btn btn-danger btn-sm delete-btn" data-id="<?php echo $lead['id'] ?>"
+                                     data-bs-toggle="modal" data-bs-target="#DeleteModal">Delete</button>
                                 </td>
                                 
                             </tr>
@@ -118,18 +118,18 @@ ini_set('display_errors', 1);
                 </table>
             </div>
         <?php elseif (isset($leads)): ?>
-            <p class="mt-4 text-danger">No leads found "<?= htmlspecialchars($name) ?>". Please try a different name.</p>
+            <p class="mt-4 text-danger">No leads found "<?= ($name) ?>". Please try a different name.</p>
         <?php endif; ?>
           </div>
 
 
 
            <!-- Delete Confirmation Modal -->
-    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+    <div class="modal fade" id="DeleteModal" tabindex="-1" aria-labelledby="DeleteModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Deletion</h5>
+                    <h5 class="modal-title" id="DeleteModalLabel">Confirm Deletion</h5>
                 </div>
                 <div class="modal-body">
                     Are you sure you want to delete this lead?

@@ -1,41 +1,35 @@
-<?php
+<?php 
+    include 'includes/crm.php';
+     $crm = new CRM();
+       $contacts = [];
+       $nameErr = "";
+       $name = "";
+       if($_SERVER["REQUEST_METHOD"]=="POST"){
+        if(empty($_POST["name"])) {
+            $nameErr = "Name is Requered";
+        }
+        else {
+            $name = $_POST["name"];
+        }
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-  include 'includes/crm.php';
-  
-   $crm = new CRM();
-   $name = "";
-   $nameErr = "";
-   $leads = [];
-
-   if($_SERVER["REQUEST_METHOD"] == "POST"){
-    if(empty($_POST["name"])) {
-        $nameErr="Name is required";
-     }
-     else {
-       $name = ($_POST["name"]);
-       if (!preg_match("/^[a-zA-Z-' ]*$/",$name)) {
-           $nameErr = "Only letters and white space allowed";
-         }
-     }
-     if($nameErr === ""){
-        $leads = $crm->searchLeadsByName($name);
-      }
-   }
+        if($nameErr === ""){
+           $contacts = $crm->SearchContactById($name);
+        }
+       }
 ?>
-
-
 
 
 <html>
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="navbar.css" rel="stylesheet">
     <link href="for-css/search-lead.css" rel="stylesheet">
 </head>
-<body>
+ <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">CRM</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -78,10 +72,10 @@ ini_set('display_errors', 1);
     <section class="hero-section">
     <div class="hero-section-layer-1">
 
-                <h4>SEARCH LEAD</h4>
+                <h4>SEARCH Contact</h4>
                  <div class="hero-section-lead-search">
                     <form action="" method="POST">
-                     <label style="margin-bottom: 10px;">Search Lead By Name :</label>
+                     <label style="margin-bottom: 10px;">Search Contact By Name :</label>
                      <input type="text"  name="name"><br>
                      <span ><?php echo $nameErr;?></span><br>
                      <input type="submit" name="submit">
@@ -90,9 +84,9 @@ ini_set('display_errors', 1);
 
                 
 
-                <?php if (isset($leads) && count($leads) > 0): ?>
+                <?php if (isset($contacts) && count($contacts) > 0): ?>
             <div class="table-responsive mt-4">
-                <h2 class="mb-4">Matching Leads</h2>
+                <h2 class="mb-4">Matching Contacts</h2>
                 <table class="table table-bordered table-striped">
                     <thead class="table-dark">
                         <tr>
@@ -103,28 +97,25 @@ ini_set('display_errors', 1);
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($leads as $lead): ?>
+                        <?php foreach ($contacts as $contact): ?>
                             <tr>
-                                <td><?php echo $lead['id'] ?></td>
-                                <td><?php echo htmlspecialchars($lead['name']); ?></td>
-                                <td><?php echo htmlspecialchars($lead['email']) ?></td>
-                                <td><?php echo htmlspecialchars($lead['phone']) ?></td>
+                                <td><?php echo $contact['id'] ?></td>
+                                <td><?php echo $contact['name']; ?></td>
+                                <td><?php echo $contact['email'] ?></td>
+                                <td><?php echo $contact['phone'] ?></td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>
-        <?php elseif (isset($leads)): ?>
-            <p class="mt-4 text-danger">No leads found with the name "<?= htmlspecialchars($name) ?>". Please try a different name.</p>
+        <?php elseif (isset($contacts)): ?>
+            <p class="mt-4 text-danger">No Contacts found with the name "<?php echo ($name) ?>". Please try a different name.</p>
         <?php endif; ?>
+             
+         
           </div>
 
 
     </section>
-
-
-    <!-- Bootstrap JavaScript and Popper.js -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-</body>
+ </body>
 </html>
